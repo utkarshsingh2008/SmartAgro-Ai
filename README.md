@@ -14,6 +14,11 @@ AI powered agriculture assistant for farmers.
 
 ## 🛠 Built With
 Python, Flask, Gemini API, HTML, CSS, JavaScript
+## 🔐 Environment Variable
+
+Create a `.env` file and add:
+
+GEMINI_API_KEY=your_api_key_here
 
 ## ▶ Run Locally
 
