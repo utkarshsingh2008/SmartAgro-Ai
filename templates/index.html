@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartAgro AI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="topbar">
+👨‍🌾 Hello Farmer
+<span>🌡 {{temp}}°C</span>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<form method="POST" enctype="multipart/form-data">
+
+<input id="problem" name="problem" placeholder="Describe crop problem" required>
+
+<button type="button" class="btn blue" onclick="startVoice()">🎤 Speak</button>
+
+<div class="grid">
+<input name="crop" placeholder="Crop">
+<input name="state" placeholder="State/Country">
+
+<select name="soil">
+<option value="">-- Select Soil / मिट्टी चुनें --</option>
+<option value="Clay">Clay / चिकनी मिट्टी</option>
+<option value="Sandy">Sandy / रेतीली मिट्टी</option>
+<option value="Loamy">Loamy / दोमट मिट्टी</option>
+<option value="Black">Black / काली मिट्टी</option>
+<option value="Red">Red / लाल मिट्टी</option>
+</select>
+
+<select name="lang" id="langsel">
+<option>English</option>
+<option>Hindi</option>
+</select>
+</div>
+
+<input type="file" name="image">
+
+<button class="btn green">Submit</button>
+
+</form>
+</div>
+
+
+<div class="card chat">
+{% for role,text in chat %}
+<div class="msg {{'ai' if role=='AI' else 'user'}}">
+<b>{{role}}</b><br>{{text}}
+</div>
+
+{% if role=='AI' %}
+<button onclick="speakLast()" class="btn orange">🔊</button>
+<button onclick="stopReading()" class="btn red">⛔</button>
+{% endif %}
+
+{% endfor %}
+</div>
+
+
+{% if calendar %}
+<div class="card">
+<h3>📅 Crop Calendar</h3>
+<ul>
+{% for step in calendar %}
+<li>{{step}}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+
+</div>
+
+<img src="{{ url_for('static', filename='character.png') }}" class="farmer">
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
